@@ -7,14 +7,15 @@ import { useParams } from 'react-router-dom';
 
 const SpecPage = () => {
 
-    const [specData, setSpecData] = useState([]);
+    const [specData, setSpecData] = useState(null);
+    const [hasLoaded, setHasLoaded] = useState(false);
 
-    // let {id} = useParams();
-
-    // let id = 4;
+    // let {tid} = useParams();
+    let tid = useParams();
+    
 
     useEffect(() => {
-        fetchSpecific()
+        fetchSpecific(tid.id)
             .then((result) => {
                 setSpecData(result);
                 
@@ -22,15 +23,32 @@ const SpecPage = () => {
             .catch((error) => {
                 console.log(error)
             })  
-    }, [])
 
-    console.log(specData[0]);
+        if(specData){
+            setHasLoaded(true);
+        }    
+    }, [specData])
 
-    if(specData) {
+    // console.log(specData);
+    // console.log(hasLoaded);
+
+    if(specData == null){
+
+        return(
+                <h1>Loading....</h1>
+            )
+
+
+    }
+    
+
+    
         return (
             <div>
-                <Card>
-                    <Card.Header>Article{specData[0].id}</Card.Header>
+                { hasLoaded && 
+                    
+                    <Card>
+                    <Card.Header>Article {specData[0].id}</Card.Header>
                     <Card.Body>
                         <Card.Title>{specData[0].title}</Card.Title>
                         <Card.Text>
@@ -40,13 +58,17 @@ const SpecPage = () => {
                        
                     </Card.Body>
                     </Card>
+
+                    
+
+                }
+
+                
             </div>
     )
-    }
+    
 
-    return (
-        <div>Pending...</div>
-    )
+    
   
 }
 

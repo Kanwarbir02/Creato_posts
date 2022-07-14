@@ -10,10 +10,10 @@ export const fecthData = async () => {
     }
 }
 
-export const fetchSpecific = async () => {
+export const fetchSpecific = async (id) => {
     try {
-        // const {data} = await axios.get(`https://jsonplaceholder.typicode.com/posts?id=${id}`);
-        const {data} = await(await axios.get(`https://jsonplaceholder.typicode.com/posts?id=1`));
+        const {data} = await axios.get(`https://jsonplaceholder.typicode.com/posts?id=${id}`);
+        // const {data} = await(await axios.get(`https://jsonplaceholder.typicode.com/posts?id=1`));
         // console.log("majsjjsj" + data);
         return data;
     } catch (error) {
